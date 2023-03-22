@@ -44,5 +44,6 @@
     void remove_last_char(char *str);
     int count_char(char *str, char c);
     void display_cmd_response(char *cmd, char *response);
+    char ***split_commands(char **cmd);
 
 #endif /* !MYSH_H_ */

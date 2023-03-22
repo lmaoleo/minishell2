@@ -82,22 +82,35 @@ char **get_input(void)
     return (input_tok);
 }
 
+int main_loop(char ***cmd_list, char **paths, linklist_t *myenv)
+{
+    my_putstr("*~ ");
+    char **input = get_input();
+    if (input == NULL)
+        return (-1);
+    cmd_list = split_commands(input);
+    for (int i = 0; cmd_list[i] != NULL; i++) {
+        if (check_command(cmd_list[i], paths, myenv) == 1)
+            return (0);
+    }
+    free(input);
+    return (-1);
+}
+
 int main(int argc, char **argv, char **env)
 {
     char **paths = get_path(env);
+    char ***cmd_list = NULL;
     linklist_t *myenv = create_linklist();
+    int return_value = 0;
 
     for (int i = 0; env[i] != NULL; i++)
         append_linklist(myenv, my_strdup(env[i]));
     myenv = get_start_linklist(myenv);
     while (1) {
-        my_putstr("*~ ");
-        char **input = get_input();
-        if (input == NULL)
-            continue;
-        if (check_command(input, paths, myenv) == 1)
-            break;
-        free(input);
+        return_value = main_loop(cmd_list, paths, myenv);
+        if (return_value != -1)
+            return (return_value);
     }
     return (0);
 }
