@@ -7,10 +7,7 @@
 
 NAME = mysh
 
-SRC = mysh.c \
-		builtins_functions.c \
-		str_utils.c \
-		execute_bin.c \
+SRC = $(shell find . -type f -name "*.c")
 
 LIBFLAG = -L./lib/my -lmy -I./include
 
@@ -21,6 +18,7 @@ MAKELIB = cd lib/my && make
 $(NAME): $(OBJ)
 	$(MAKELIB)
 	gcc -o $(NAME) $(OBJ) $(LIBFLAG)
+	make clean
 
 all: $(NAME)
 

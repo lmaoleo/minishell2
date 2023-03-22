@@ -1,0 +1,11 @@
+*.a
+*.out
+*.log
+*.o
+*.gcno
+*.gcda
+*.gcov
+.vscode
+*.md
+mysh
+tests

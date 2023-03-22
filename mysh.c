@@ -70,6 +70,8 @@ char **get_input(void)
 
     if (getline(&input, &size, stdin) == -1)
         return (NULL);
+    if (input[0] == '\n')
+        return (NULL);
     remove_last_char(input);
     argc = count_char(input, ' ') + 1;
     input_tok = malloc(sizeof(char *) * (argc + 1));
@@ -92,7 +94,7 @@ int main(int argc, char **argv, char **env)
         my_putstr("*~ ");
         char **input = get_input();
         if (input == NULL)
-            return (0);
+            continue;
         if (check_command(input, paths, myenv) == 1)
             break;
         free(input);
