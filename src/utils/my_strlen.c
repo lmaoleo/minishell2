@@ -1,11 +1,11 @@
 /*
-** EPITECH PROJECT, 2022
-** B-CPE-100-TLS-1-1-cpoolday06-leo.maurel
+** EPITECH PROJECT, 2023
+** B-PSU-200-TLS-2-1-minishell1-leo.maurel
 ** File description:
 ** my_strlen
 */
 
-int my_strlen(const char *str)
+int my_strlen(char const *str)
 {
     int i = 0;
 

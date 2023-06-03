@@ -7,5 +7,6 @@
 *.gcov
 .vscode
 *.md
+vgcore.*
 mysh
 tests

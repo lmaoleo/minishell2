@@ -1,49 +1,56 @@
 /*
 ** EPITECH PROJECT, 2023
-** minishell1
+** B-PSU-200-TLS-2-1-minishell1-leo.maurel
 ** File description:
-** minishell.h
+** mysh
 */
 
 #ifndef MYSH_H_
     #define MYSH_H_
 
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <unistd.h>
-    #include <string.h>
-    #include <signal.h>
-    #include <sys/types.h>
-    #include <sys/wait.h>
+typedef struct env_s {
+    char *value;
+    struct env_s *next;
+} env_t;
 
-    #include "my_linklist.h"
+typedef struct builtins_s {
+    char *name;
+    int (*func)(char **, env_t *);
+} builtins_t;
 
-    struct builtin_s {
-        char *name;
-        void (*func)(char **, linklist_t *);
-    };
+char **init_input(void);
+void free_input(char **input);
+char **get_input(void);
+char **env_to_char(env_t *env);
+int my_cd(char **input, env_t *env);
+int my_pwd(char **input, env_t *env);
+int my_env(char **input, env_t *env);
+int my_exit(char **input, env_t *env);
+int my_setenv(char **input, env_t *env);
+int my_unsetenv(char **input, env_t *env);
+char **env_to_char(env_t *env);
+env_t *char_to_env(char **env);
+void free_tab(char **tab);
+void free_env(env_t *env);
+char *get_env_value(env_t *env, char *name);
+void set_env_value(env_t *env, char *name, char *value);
+void add_env_value(env_t *env, char *name, char *value);
+void remove_env_value(env_t **env, char *name);
+int exec_bin(char **input, env_t *env);
+void print_error(char *bin, char *error);
 
-    int my_strlen(char const *str);
-    int my_putstr(char const *str);
-    void my_putstr_error(const char *str);
-    int my_putchar(char c);
-    int my_putnbr(int nb);
-    char *my_strdup(char *src);
-    int my_strcmp(char const *s1, char const *s2);
-    int my_strncmp(char const *s1, char const *s2, int n);
-    char *my_strcat(char *dest, char const *src);
-    void *my_realloc(void *ptr, size_t size);
-    void *my_memcpy(void *dest, const void *src, size_t n);
-
-    void my_cd(char **cmd, linklist_t *_env);
-    void display_pwd(char **_cmd, linklist_t *_env);
-    void display_env(char **_cmd, linklist_t *env);
-    void set_env(char **cmd, linklist_t *env);
-    void unset_env(char **cmd, linklist_t *env);
-    int try_execute_bin(char **cmd, char **paths);
-    void remove_last_char(char *str);
-    int count_char(char *str, char c);
-    void display_cmd_response(char *cmd, char *response);
-    char ***split_commands(char **cmd);
+int my_putchar(char c);
+int my_putstr(char const *str);
+int my_strlen(char const *str);
+int my_strcmp(char *str1, char *str2);
+int my_strncmp(char *str1, char *str2, int n);
+int my_char_in_str(char *str, char c);
+char *my_strcpy(char *dest, char const *src);
+char *my_strdup(char const *src);
+char *my_strndup(char const *src, int n);
+char *my_strcat(char *dest, char const *src);
+char **my_str_split(char *str, char *sep);
+char **my_str_split_chars(char *str, char *char_seps);
+void my_strclean(char *str);
 
 #endif /* !MYSH_H_ */
