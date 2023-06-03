@@ -8,6 +8,13 @@
 #ifndef MYSH_H_
     #define MYSH_H_
 
+    #define SEMICOLON ";"
+    #define PIPE "|"
+    #define REDIRECT_LEFT "<"
+    #define REDIRECT_RIGHT ">"
+    #define REDIRECT_DOUBLE_LEFT "<<"
+    #define REDIRECT_DOUBLE_RIGHT ">>"
+
 typedef struct env_s {
     char *value;
     struct env_s *next;
@@ -18,9 +25,8 @@ typedef struct builtins_s {
     int (*func)(char **, env_t *);
 } builtins_t;
 
-char **init_input(void);
-void free_input(char **input);
-char **get_input(void);
+char *init_input(void);
+char *get_input(void);
 char **env_to_char(env_t *env);
 int my_cd(char **input, env_t *env);
 int my_pwd(char **input, env_t *env);
@@ -38,6 +44,10 @@ void add_env_value(env_t *env, char *name, char *value);
 void remove_env_value(env_t **env, char *name);
 int exec_bin(char **input, env_t *env);
 void print_error(char *bin, char *error);
+void input_loop(char **input, env_t *env_cpy,
+int *status, int *last_status);
+void execute_semicolon_split(char *input, env_t *env_cpy,
+int *status, int *last_status);
 
 int my_putchar(char c);
 int my_putstr(char const *str);

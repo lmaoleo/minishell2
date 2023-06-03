@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "mysh.h"
 
-int env_len(env_t *env)
+static int env_len(env_t *env)
 {
     int i = 0;
 

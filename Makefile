@@ -24,17 +24,22 @@ SRC =	mysh.c \
 		env_utils.c \
 		env_command.c \
 		execute_bin.c \
-		utils/my_str_to_word_array.c \
-		utils/my_putchar.c \
-		utils/my_putstr.c \
-		utils/my_strlen.c \
-		utils/my_strcmp.c \
-		utils/my_strdup.c \
-		utils/my_strcpy.c \
-		utils/my_strcat.c \
-		utils/my_strclean.c \
+		handle_separators.c \
+
+UTILS = my_str_to_word_array.c \
+		my_putchar.c \
+		my_putstr.c \
+		my_strlen.c \
+		my_strcmp.c \
+		my_strdup.c \
+		my_strcpy.c \
+		my_strcat.c \
+		my_strclean.c \
 
 SRC := $(addprefix src/, $(SRC))
+
+UTILS := $(addprefix src/utils/, $(UTILS))
+SRC += $(UTILS)
 
 OBJ = $(SRC:.c=.o)
 

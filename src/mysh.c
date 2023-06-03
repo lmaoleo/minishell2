@@ -35,7 +35,7 @@ static int exec_builtin(char **input, env_t *env)
     return (-2);
 }
 
-static void input_loop(char **input, env_t *env_cpy,
+void input_loop(char **input, env_t *env_cpy,
 int *status, int *last_status)
 {
     *status = exec_builtin(input, env_cpy);
@@ -47,23 +47,20 @@ int *status, int *last_status)
 
 int main(int ac, char **av, char **env)
 {
-    (void) ac;
-    (void) av;
-    char **input = init_input();
+    (void) ac; (void) av;
+    char *input = init_input();
     env_t *env_cpy = char_to_env(env);
     int status = 0;
     int last_status = 0;
 
     while (status == 0) {
-        free_input(input);
+        free(input);
         input = get_input();
         if (input == NULL)
             break;
-        if (input[0][0] == '\0')
-            continue;
-        input_loop(input, env_cpy, &status, &last_status);
+        execute_semicolon_split(input, env_cpy, &status, &last_status);
     }
-    free_input(input);
+    free(input);
     free_env(env_cpy);
     return (last_status);
 }

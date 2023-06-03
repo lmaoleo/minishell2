@@ -57,7 +57,7 @@ void add_env_value(env_t *env, char *name, char *value)
     tmp->next = new_env;
 }
 
-void remove_env_value_by_pos(env_t **env, env_t *tmp, env_t *prev)
+static void remove_env_value_by_pos(env_t **env, env_t *tmp, env_t *prev)
 {
     if (prev == NULL) {
         *env = tmp->next;
