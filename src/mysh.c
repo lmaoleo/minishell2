@@ -22,7 +22,7 @@ static const builtins_t BUILTINS[] = {
     {NULL, NULL}
 };
 
-static int exec_builtin(char **input, env_t *env)
+int exec_builtin(char **input, env_t *env)
 {
     int status = 0;
 

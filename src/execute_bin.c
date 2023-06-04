@@ -64,6 +64,29 @@ void print_error(char *bin, char *error)
     my_putstr("\n");
 }
 
+void pipe_execution(char **argv1, char **argv2, env_t *env_cpy, int *status)
+{
+    int fd[2];
+    pid_t pid;
+
+    pipe(fd);
+    pid = fork();
+    if (pid == 0) {
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[0]);
+        if (exec_builtin(argv1, env_cpy) == -2)
+            exec_bin(argv1, env_cpy);
+        exit(0);
+    } else {
+        dup2(fd[0], STDIN_FILENO);
+        close(fd[1]);
+        status[0] = exec_builtin(argv2, env_cpy);
+        if (status[0] == -2)
+            status[1] = exec_bin(argv2, env_cpy);
+        waitpid(pid, &(status[0]), 0);
+    }
+}
+
 int exec_bin(char **input, env_t *env)
 {
     char *path = get_path(input[0], env);

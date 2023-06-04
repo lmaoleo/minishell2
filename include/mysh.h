@@ -48,6 +48,8 @@ void input_loop(char **input, env_t *env_cpy,
 int *status, int *last_status);
 void execute_semicolon_split(char *input, env_t *env_cpy,
 int *status, int *last_status);
+void pipe_execution(char **argv1, char **argv2, env_t *env_cpy, int *status);
+int exec_builtin(char **input, env_t *env);
 
 int my_putchar(char c);
 int my_putstr(char const *str);
